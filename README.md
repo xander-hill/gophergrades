@@ -1,36 +1,130 @@
-[![GopherGrades](frontend/public/images/home-og.png)](https://umn.lol)
-# GopherGrades! ([umn.lol](https://umn.lol))
+# Gopher Grades (Fork)
 
-GopherGrades is a web app that allows you to look up past grades for courses at the University of Minnesota. The frontend is built with NextJS, SQLite, and ChakraUI. The backend is written in Python utilizing the pandas library to wrangle data provided to us by the [Office of Data Access and Privacy](https://ogc.umn.edu/data-access-and-privacy) and [The Office of Undergraduate Education Academic Support Resources](https://github.com/umn-asr/courses).
+> **My primary contribution:** **APAS Explorer** — a feature that synchronizes University of Minnesota APAS degree audits into the Gopher Grades Chrome extension for interactive degree planning.
+
+This repository is a fork of the original **Gopher Grades** Chrome Extension. My work focused on designing and implementing **APAS Explorer**, an end-to-end feature that enables students to import their APAS degree audit, visualize remaining degree requirements, and seamlessly explore eligible courses alongside existing GPA distribution data.
+
+> **Status:** Developed in a fork of Gopher Grades. The feature was completed, tested, and updated to remain compatible with the current uAchieve APAS platform, but was not merged into the upstream repository after project communication concluded.
+
+---
+
+# Demo
+
+![APAS Explorer Demo](docs/demo.gif)
+
+---
+
+## Key Features
+
+- Synchronize University of Minnesota APAS degree audits
+- Parse legacy APAS HTML into structured requirement data
+- Visualize remaining degree requirements interactively
+- Explore eligible courses alongside GPA distribution data
+- Cache synchronized audits locally using Chrome Storage
+
+---
+
+# My Contribution
+
+I independently designed and implemented the complete APAS Explorer workflow, including:
+
+- APAS synchronization from the University of Minnesota audit system
+- Legacy DOM parsing across nested HTML structures and iframes
+- Requirement extraction and normalization into structured application data
+- Browser storage synchronization using `chrome.storage`
+- Interactive requirement visualization
+- State-aware synchronization workflow and user feedback
+- Integration with the existing course and GPA exploration experience
+- Compatibility updates for changes to the University's APAS platform
+
+The remainder of the extension—including historical GPA data, Schedule Builder integration, and other existing functionality—originated from the original Gopher Grades project.
+
+---
+
+# Technical Highlights
+
+### Degree Audit Parsing
+
+Developed a resilient client-side parsing pipeline capable of extracting meaningful academic requirements from deeply nested legacy APAS HTML. The parser normalizes inconsistent markup and transforms unstructured audit reports into structured application data suitable for interactive exploration.
+
+### Browser Extension Integration
+
+Implemented a Chrome Extension content-script workflow that injects synchronization controls into the APAS interface, parses the current audit, persists results using browser storage, and integrates seamlessly with the existing extension.
+
+### User Experience
+
+Designed a lightweight synchronization workflow with responsive UI feedback, loading states, and browser storage to provide a fast, intuitive degree-planning experience.
+
+### User-Centered Design
+
+APAS Explorer originated from user experience research conducted for a university UI/UX design course, translating observed student planning workflows into an integrated degree-planning feature.
+
+---
+
+# Architecture Overview
+
+```text
+University APAS Audit
+          │
+          ▼
+Content Script Injection
+          │
+          ▼
+APAS Parsing Engine
+          │
+          ▼
+Requirement Normalization
+          │
+          ▼
+chrome.storage
+          │
+          ▼
+APAS Explorer Interface
+          │
+          ▼
+Course & GPA Exploration
+```
+
+---
 
 # Running Locally
-```bash
-cd frontend
 
-# make sure you have nodejs, npm, and yarn installed!
-yarn install
+## Prerequisites
 
-yarn dev
-# live at http://localhost:3000
-```
+- Google Chrome with **Developer Mode** enabled
 
-In order to properly run the frontend you'll need to have a `GITHUB_TOKEN` environment variable set. Follow the instructions by [Github](https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) to create one. Ensure that your personal access token has the `public_repo` scope. This will allow it to fetch collaborator information from the repository. Your `.env` file in the root of the frontend folder should look like:
+## Installation
 
 ```bash
-GITHUB_TOKEN=your_token_here
+git clone <repository-url>
 ```
 
-# Building the Firefox Extension
+1. Open `chrome://extensions`.
+2. Enable **Developer Mode**.
+3. Select **Load unpacked**.
+4. Choose the `chrome-extension` directory.
+5. Navigate to the University of Minnesota APAS audit page.
+6. Click **Sync APAS** to import your audit into Gopher Grades.
 
-```bash
-# make sure you're in the root of the repository
-node bin/chrome-to-firefox.js
-# Firefox should start in debug mode
-#   You may have to click on the extension icon in the top right of the browser
-#   to give it permission to run on the current page.
+---
 
-# To build the extension, run
-node bin/build-extensions.js
+# Technologies
 
-# The extension will be built to the `web-ext-artifacts` directory
-```
+- JavaScript (ES6)
+- Chrome Extensions API
+- HTML / CSS
+- DOM Parsing
+- Browser Storage APIs
+
+---
+
+# Original Project & Attribution
+
+This repository is a fork of the original **Gopher Grades** project.
+
+**Original repository:**
+https://github.com/samyok/gophergrades
+
+The original project provides GPA distribution data and academic planning tools for University of Minnesota students. This fork showcases my implementation of **APAS Explorer** while preserving and building upon the original project.
+
+Please refer to the original repository for the complete project history and contributions from the original development team.
