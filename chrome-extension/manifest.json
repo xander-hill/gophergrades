@@ -63,7 +63,9 @@
       ]
     },
     {
-      "matches": ["*://apas.umn.edu/*"],
+      "matches": ["*://apas.umn.edu/*",
+                "https://umn.uachieve.com/selfservice/*",
+                "https://*.uachieve.com/selfservice/*"],
       "js": ["scripts/apas-parser.js"],
       "css": ["apas/apas.css"],
       "run_at": "document_idle",
@@ -75,7 +77,9 @@
     "*://umn.lol/*",
     "*://*.umn.edu/*",
     "*://umn.edu/*",
-    "https://schedulebuilder.umn.edu/*"
+    "https://schedulebuilder.umn.edu/*",
+    "https://umn.uachieve.com/*",
+    "https://*.uachieve.com/*"
   ],
   "permissions": [
     "storage",
